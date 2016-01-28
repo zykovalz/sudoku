@@ -7,7 +7,7 @@ module Sudoku
     def initialize(level)
       @level = level
       @max_delete = 45
-      @max_delete = 60 if @level == 2
+      @max_delete = 55 if @level == 2
       @data = [
         [1, 2, 3, 4, 5, 6, 7, 8, 9],
         [4, 5, 6, 7, 8, 9, 1, 2, 3],
@@ -42,7 +42,7 @@ module Sudoku
         if @grid.valid? && @grid.missing == 0
           @delete += 1
           @grid[x, y].set(0)
-          @grid[x, y].set_org
+          @grid[x, y].set_org          
         end
         @grid.each(&:ret_org)
         a.delete(a[i])

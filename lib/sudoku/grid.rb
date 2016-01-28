@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative './cell'
-
+# module sudoku
 module Sudoku
   EXCLUDE = lambda do |enum, val|
     t = 0
@@ -30,45 +30,6 @@ module Sudoku
     # Return value at given position
     def value(x, y)
       @grid[x][y].value
-    end
-
-    def find_prev(zero, pos)
-      pos = zero.index(pos) - 1
-      return -1 if pos < 0
-      zero[pos]
-    end
-
-    def try_value(row, col, zero, pos)
-      h = value(row, col) + 1
-      if h > 9
-        self[row, col].set(0)
-        pos = find_prev(zero, pos)
-      else
-        self[row, col].set(h)
-        pos += 1 if valid?
-      end
-      pos
-    end
-
-    def fill(z)
-      pos = 0
-      while pos >= 0
-        r = pos / 9
-        c = pos % 9
-        return true if pos == 81
-        self[r, c].origin == 0 ? pos = try_value(r, c, z, pos) : pos += 1
-      end
-    end
-
-    def numeric
-      zero = []
-      i = 0
-      each do |x|
-        zero.push(i) unless x.filled?
-        x.set_org
-        i += 1
-      end
-      fill(zero)
     end
 
     def exclude_call(x, row, col)
@@ -158,15 +119,11 @@ module Sudoku
       (3 * (x / 3)) + y / 3
     end
 
-    # Yields elements from block which is
-    # containing element at given position
     def block_elems(x, y)
       return block(number_block(x, y)) unless block_given?
       block(number_block(x, y)).each { |v| yield v }
     end
 
-    # With one argument return row, with 2, element
-    # at given position
     def [](*args)
       if args.length == 1
         @grid[args[0]]
@@ -239,15 +196,6 @@ module Sudoku
         return false unless valid_enum(block(i))
       end
       true
-    end
-
-    # Serialize grid values to a one line string
-    def solution
-      solution = ''
-      each do |cell|
-        solution += cell.value.to_s
-      end
-      solution
     end
   end
 end

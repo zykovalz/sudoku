@@ -5,6 +5,7 @@
 module Sudoku
   # class Cell
   class Cell
+    attr_reader :filled
     def initialize(*args)
       if args.length == 2
         set(args[0])
@@ -25,11 +26,6 @@ module Sudoku
 
     def origin
       @org
-    end
-
-    # true when value was already assigned
-    def filled?
-      @filled
     end
 
     def opts(num)

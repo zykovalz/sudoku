@@ -1,6 +1,6 @@
-
 require 'gosu'
 module Sudoku
+  # class textField
   class TextField < Gosu::TextInput
     INACTIVE_COLOR  = 0xcc666666
     ACTIVE_COLOR    = 0xccff6666
@@ -26,7 +26,7 @@ module Sudoku
       end
       @window.draw_quad(x - PAD, y - PAD, background_color, x + width + PAD, y - PAD, background_color, x - PAD, y + height + PAD, background_color, x + width + PAD, y + height + PAD, background_color, 0)
       pos_x = x + @font.text_width(self.text[0...self.caret_pos])
-      sel_x = x + @font.text_width(seslf.text[0...self.selection_start])
+      sel_x = x + @font.text_width(self.text[0...self.selection_start])
       @window.draw_quad(sel_x, y, SELECTION_COLOR, pos_x, y, SELECTION_COLOR, sel_x, y + height, SELECTION_COLOR, pos_x, y + height, SELECTION_COLOR, 0)
       if @window.text_input == self
         @window.draw_line(pos_x, y, CARET_COLOR, pos_x, y + height, CARET_COLOR, 0)
@@ -45,7 +45,6 @@ module Sudoku
     end
 
     def width
-      @font.text_width(self.text)
       150
     end
 
